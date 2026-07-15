@@ -1,0 +1,56 @@
+# ===========================
+# Dependencies
+# ===========================
+node_modules/
+**/node_modules/
+
+# ===========================
+# Environment Variables
+# ===========================
+.env
+.env.*
+
+# ===========================
+# Firebase / Google Cloud Secrets
+# ===========================
+serviceAccountKey.json
+firebase-adminsdk-*.json
+**/serviceAccountKey.json
+**/firebase-adminsdk-*.json
+
+# ===========================
+# Logs
+# ===========================
+logs/
+*.log
+npm-debug.log*
+
+# ===========================
+# Build Output
+# ===========================
+dist/
+build/
+
+# ===========================
+# Coverage
+# ===========================
+coverage/
+
+# ===========================
+# IDE Files
+# ===========================
+.vscode/
+.idea/
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+Thumbs.db
+
+# ===========================
+# Temporary Files
+# ===========================
+tmp/
+temp/
+.cache/
