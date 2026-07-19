@@ -1,15 +1,17 @@
 import { getAuth } from "firebase-admin/auth"
-import User from "../models/user.model"
+import User from "../models/user.model.js"
+import { app } from "../config/firebase.js"
+
 
 export const login = async (req,res) => {
     try {
         const {token} =req.body
         const decoded = await getAuth(app).verifyIdToken(token)
-        const user = await User.findOne({
+        let user = await User.findOne({
             firebaseUid: decoded.uid
         })
 
-        if(!user) {
+        if(!user) { // if user not present create new user
             user = await User.create({
                 firebaseUid: decoded.uid,
                 name: decoded.name,
@@ -18,10 +20,18 @@ export const login = async (req,res) => {
             })
         }
 
-        
+        const sessionId = crypto.randomUUID()
+        res.cookie("session",sessionId, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "strict",
+            maxAge: 7*24*60*60*1000 // in millisecond
+        })
+
+        return res.status(200).json(user)
         
     }
-    catch {
-
+    catch(error) {
+        return res.status(500).json({message: `logiig error ${error}`})
     }
 }
